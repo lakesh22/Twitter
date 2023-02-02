@@ -9,5 +9,5 @@ app.listen(3000, async () => {
   await connect();
   console.log("mongo Db connected");
   let s = new service();
-  await s.create("#new #tweet");
+  await s.create({ content: "#new #tweet" });
 });

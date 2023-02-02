@@ -1,13 +1,16 @@
 import express from "express";
+import bodyParser from "body-parser";
+
 import { connect } from "./config/database.js";
 const app = express();
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-import service from "./services/tweet-service.js";
-import HashtagRepository from "./repository/hashtag-repository.js";
+import apiRoutes from "./routes/index.js";
+
+app.use("/api", apiRoutes);
 app.listen(3000, async () => {
   console.log("server started");
   await connect();
   console.log("mongo Db connected");
-  let s = new service();
-  await s.create({ content: "#new #tweet" });
 });

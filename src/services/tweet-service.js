@@ -7,6 +7,7 @@ class TweetService {
   }
 
   async create(data) {
+    console.log(data);
     const content = data.content;
     const tags = content
       .match(/#[a-zA-Z0-9_]+/g)
@@ -23,6 +24,10 @@ class TweetService {
       tag.tweets.push(tweet.id);
       tag.save();
     });
+    return tweet;
+  }
+  async get(tweetId) {
+    const tweet = await this.tweetRepository.getWithComments(tweetId);
     return tweet;
   }
 }
